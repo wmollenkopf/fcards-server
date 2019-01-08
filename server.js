@@ -4,8 +4,34 @@ const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
 const knex = require('knex')
 
-const db = null;
-const appPort = process.env.port;
+const db = knex({
+  client: 'pg',
+  connection: {
+    host: '',
+    port: '5432',
+    user: '',
+    password: '',
+    database: ''
+  }
+});
+
+console.log("start");
+try
+{
+  db.schema.createTable('users', function (table) {
+    table.increments();
+    table.string('username');
+    table.string('password');
+    table.timestamps();
+  });
+}
+catch(ex)
+{
+  throw ex;
+}
+
+
+const appPort = process.env.port || 3000;
 
 const app = express();
 
