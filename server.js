@@ -1,48 +1,54 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt-nodejs');
-const cors = require('cors');
-const knex = require('knex')
-
-const db = knex({
-  client: 'pg',
+const express = require("express");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt-nodejs");
+const cors = require("cors");
+const options = {
+  client: "mysql",
   connection: {
-    host: '',
-    port: '5432',
-    user: '',
-    password: '',
-    database: ''
+    host: "127.0.0.1",
+    user: "fcuser",
+    password: "type_user_password_here",
+    database: "lang_flash_cards"
   }
-});
+};
+const knex = require("knex")(options);
 
-console.log("start");
-try
-{
-  db.schema.createTable('users', function (table) {
-    table.increments();
-    table.string('username');
-    table.string('password');
-    table.timestamps();
-  });
-}
-catch(ex)
-{
-  throw ex;
-}
+// Used to test that things were set up correctly...
+// knex
+//   .raw("SELECT VERSION()")
+//   .then(version => console.log(version[0][0]))
+//   .catch(err => {
+//     console.log(err);
+//     throw err;
+//   })
+//   .finally(() => {
+//     knex.destroy();
+//   });
 
-
+// Express Init...
 const appPort = process.env.port || 3000;
-
 const app = express();
-
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/', (req, res)=> {
-  res.send('App is online!');
-})
+// Listeners...
+app.get("/", (req, res) => {
+  try {
+    knex.select('*')
+      .from('users')
+      .on('query', function(data) {
+        //app.log(data);
+      })
+      .then(function(result) {
+        res.send(result);
+      });
+  } catch (ex) {
+    res.send(`{error: "An error has occurred: ${ex}"`);
+  }
 
+  
+});
 
-app.listen(appPort, ()=> {
+app.listen(appPort, () => {
   console.log(`app is running on port ${appPort}`);
-})
+});
