@@ -14,6 +14,7 @@ const options = {
 const db = require("knex")(options);
 
 const knexCheckConnection = require('./controllers/connectionCheck');
+const signin = require('./controllers/signin');
 const register = require('./controllers/register');
 
 
@@ -39,7 +40,7 @@ app.get("/", (req, res) => {
     res.send(`{error: "An error has occurred: ${ex}"`);
   }
 });
-
+app.post('/signin', signin.handleSignin(db, bcrypt));
 app.post('/register', (req, res) => {
   register.handleRegister(req, res, db, bcrypt)
 })
