@@ -11,6 +11,10 @@ CREATE TABLE `lang_flash_cards`.`users` (
 ```
 
 ```sql
+ALTER TABLE lang_flash_cards.users ADD UNIQUE (username);
+```
+
+```sql
 CREATE TABLE `lang_flash_cards`.`flash_cards` (
   `flash_card_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
@@ -27,7 +31,7 @@ GRANT ALL ON fcuser.* TO 'fcuser'@'localhost';
 ```
 
 ```sql
-ALTER TABLE flash_cards
+ALTER TABLE lang_flash_cards.flash_cards
  ADD CONSTRAINT fk_flash_cards_users 
  FOREIGN KEY (user_id) 
  REFERENCES users (user_id)
