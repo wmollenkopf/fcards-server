@@ -7,7 +7,7 @@ const options = {
   connection: {
     host: "127.0.0.1",
     user: "fcuser",
-    password: "mysqlmamba",
+    password: "your_password",
     database: "lang_flash_cards"
   }
 };
