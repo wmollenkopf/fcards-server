@@ -7,7 +7,7 @@ const options = {
   connection: {
     host: "127.0.0.1",
     user: "fcuser",
-    password: "your_password",
+    password: "mysqlmamba",
     database: "lang_flash_cards"
   }
 };
@@ -37,7 +37,7 @@ app.post('/editcard', (req, res) => {flashCards.handleEdit(req, res, db)});
 app.post('/delcard', (req, res) => {flashCards.handleDel(req, res, db)});
 
 // Get Cards
-app.get('/getcards', (req, res) => {flashCards.handleGetAll(req, res, db)});
+app.post('/getcards', (req, res) => {flashCards.handleGetAll(req, res, db)});
 
 app.listen(appPort, () => {
   console.log(`app is running on port ${appPort}`);

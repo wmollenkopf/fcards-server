@@ -31,7 +31,8 @@ CREATE TABLE `lang_flash_cards`.`logins` (
 CREATE TABLE `lang_flash_cards`.`cards` (
   `card_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
-  `card_text` VARCHAR(1000) NOT NULL,
+  `card_question` VARCHAR(1000) NOT NULL,
+  `card_answer` varchar(1000) NOT NULL DEFAULT 'Blank',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`card_id`));

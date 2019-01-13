@@ -3,9 +3,10 @@ const pretendUserID = 4;
 const handleAdd = (req, res, db) => {
     const {
         sessionKey,
-        cardText
+        cardQuestion,
+        cardAnswer
     } = req.body;
-    if (!sessionKey || !cardText) {
+    if (!sessionKey || !cardQuestion || !cardAnswer) {
         return res.status(400).json(`incorrect format`);
     }
 
@@ -15,7 +16,8 @@ const handleAdd = (req, res, db) => {
     db.transaction(trx => {
             trx.insert({
                     user_id: userId,
-                    card_text: cardText
+                    card_question: cardQuestion,
+                    card_answer: cardAnswer
                 })
                 .into('cards')
                 .returning('*')
@@ -33,9 +35,10 @@ const handleEdit = (req, res, db) => {
     const {
         sessionKey,
         cardId,
-        cardText
+        cardQuestion,
+        cardAnswer
     } = req.body;
-    if (!sessionKey || !cardText || !cardId) {
+    if (!sessionKey || !cardQuestion || !cardAnswer || !cardId) {
         return res.status(400).json(`incorrect format`);
     }
 
@@ -44,7 +47,8 @@ const handleEdit = (req, res, db) => {
 
     db.transaction(trx => {
             trx.update({
-                    card_text: cardText,
+                    card_question: cardQuestion,
+                    card_answer: cardAnswer,
                     last_modified: new Date()
                 })
                 .into('cards')
