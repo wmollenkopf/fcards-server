@@ -5,7 +5,7 @@ DB User:
 ```sql
 CREATE USER 'fcuser'@'localhost' IDENTIFIED BY 'type_user_password_here';
 ALTER USER 'fcuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'type_user_password_here';
-GRANT ALL ON fcuser.* TO 'fcuser'@'localhost';
+GRANT ALL ON lang_flash_cards.* TO 'fcuser'@'localhost';
 ```
 
 Tables:
