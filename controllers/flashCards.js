@@ -52,7 +52,7 @@ const handleEdit = (req, res, db) => {
                     last_modified: new Date()
                 })
                 .into('cards')
-                .where({card_id: cardId, user_id: pretendUserID})
+                .where({card_id: cardId, user_id: userId})
                 .returning('*')
                 .then(result => {
                     res.json(result && (result)==1);
@@ -71,18 +71,14 @@ const handleDel = (req, res, db) => {
     if (!sessionKey || !cardId) {
         return res.status(400).json(`incorrect format`);
     }
-
+    
     // TODO: Get userid from express session
     const userId = pretendUserID; // again, this is meant to be from express session, based on the sessionKey passed
-
     db.transaction(trx => {
             trx.del()
                 .from('cards')
-                .where({card_id: cardId, user_id: pretendUserID})
-                .returning('*')
-                .then(result => {
-                    res.json(result && (result)==1);
-                })
+                .where({card_id: cardId, user_id: userId})
+                .then(result => {return res.json(result && (result)==1);})
                 .then(trx.commit)
                 .catch(trx.rollback)
         })
