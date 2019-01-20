@@ -3,9 +3,9 @@
 DB User:
 
 ```sql
-CREATE USER 'fcuser'@'localhost' IDENTIFIED BY 'type_user_password_here';
-ALTER USER 'fcuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'type_user_password_here';
-GRANT ALL ON lang_flash_cards.* TO 'fcuser'@'localhost';
+CREATE USER 'your_db_username'@'localhost' IDENTIFIED BY 'your_db_password';
+ALTER USER 'your_db_username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_db_password';
+GRANT ALL ON lang_flash_cards.* TO 'your_db_username'@'localhost';
 ```
 
 Tables:
