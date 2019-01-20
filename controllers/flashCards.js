@@ -1,4 +1,4 @@
-const pretendUserID = 4;
+const authenticate = require('./authenticate');
 
 const handleAdd = (req, res, db) => {
     const {
@@ -10,8 +10,9 @@ const handleAdd = (req, res, db) => {
         return res.status(400).json(`incorrect format`);
     }
 
-    // TODO: Get userid from express session
-    const userId = pretendUserID; // again, this is meant to be from express session, based on the sessionKey passed
+    const tokenData = authenticate.verifyToken(sessionKey);
+    if(!tokenData){res.json({error: `Invalid Token`});}
+    const userId = tokenData.user[0].user_id;
 
     db.transaction(trx => {
             trx.insert({
@@ -42,8 +43,9 @@ const handleEdit = (req, res, db) => {
         return res.status(400).json(`incorrect format`);
     }
 
-    // TODO: Get userid from express session
-    const userId = pretendUserID; // again, this is meant to be from express session, based on the sessionKey passed
+    const tokenData = authenticate.verifyToken(sessionKey);
+    if(!tokenData){res.json({error: `Invalid Token`});}
+    const userId = tokenData.user[0].user_id;
 
     db.transaction(trx => {
             trx.update({
@@ -71,9 +73,11 @@ const handleDel = (req, res, db) => {
     if (!sessionKey || !cardId) {
         return res.status(400).json(`incorrect format`);
     }
-    
-    // TODO: Get userid from express session
-    const userId = pretendUserID; // again, this is meant to be from express session, based on the sessionKey passed
+
+    const tokenData = authenticate.verifyToken(sessionKey);
+    if(!tokenData){res.json({error: `Invalid Token`});}
+    const userId = tokenData.user[0].user_id;
+
     db.transaction(trx => {
             trx.del()
                 .from('cards')
@@ -87,11 +91,13 @@ const handleDel = (req, res, db) => {
 
 
 const handleGetAll = (req, res, db) => {
-    const userId = pretendUserID; // again, this is meant to be from express session, based on the sessionKey passed
-
     const {
         sessionKey
     } = req.body;
+    const tokenData = authenticate.verifyToken(sessionKey);
+    if(!tokenData){res.json({error: `Invalid Token`});}
+
+    const userId = tokenData.user[0].user_id;
 
     db.select('*')
     .from('cards')
