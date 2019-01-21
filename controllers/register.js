@@ -1,4 +1,5 @@
-const handleRegister = (req, res, db, bcrypt) => {
+const handleRegister = (req, res, db, bcrypt,jwt) => {
+    let newUserId = 0;
     const {
         username,
         password
@@ -7,28 +8,45 @@ const handleRegister = (req, res, db, bcrypt) => {
         return res.status(400).json(`incorrect form submission`);
     }
     const hash = bcrypt.hashSync(password);
-    db.transaction(trx => {
-            trx.insert({
-                username: username,
-                created_at: new Date()
+    return db.transaction(function (t) {
+        return db("users")
+          .transacting(t)
+          .insert({
+            username: username,
+            created_at: new Date()
+            })
+          .then(function (response) {
+            newUserId=response;
+            return db('logins')
+              .transacting(t)
+              .insert({
+                user_id: response,
+                password: hash,
                 })
-                .into('users')
-                .returning('user_id')
-                .then((user )=> {
-                    return trx('logins')
-                        .returning('*')
-                        .insert({
-                            user_id: user[0],
-                            password: hash,
-                        })
-                        .then(user => {
-                            res.json(user[0]);
-                        })
+          })
+          .then(t.commit)
+          .catch(t.rollback)
+      })
+      .then(function () {
+        if(newUserId>0) {
+            // transaction succeeded, data written
+            return db.select('*').from('users')
+                .where('user_id', '=', newUserId)
+                .then(user => {
+                    if(user) {
+                    const token = jwt.sign({user},process.env.API_SECRET_KEY);
+                    res.json({token: token});
+                    } else {
+                    res.json({error: `Unable to create token.`});
+                    }
+                    
                 })
-                .then(trx.commit)
-                .catch(trx.rollback)
-        })
-        .catch(err => res.status(400).json(`unable to register ${err}`))
+                .catch(err => res.status(400).json(`unable to get new user: ${err}`))
+        } else {
+            res.json({token: ``});
+        }
+      })
+      .catch(err => res.status(400).json(`unable to register ${err}`))
 }
 
 module.exports = {

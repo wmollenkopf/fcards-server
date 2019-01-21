@@ -30,15 +30,12 @@ app.use(bodyParser.json());
 // Listeners...
 app.get("/", (req, res) => {res.send("Hello World");});
 app.get("/decode", (req, res) => {
-  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjpbeyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6ImJpcmlAYmlyaS5tZSIsImNyZWF0ZWRfYXQiOiIyMDE5LTAxLTIwVDIwOjQ0OjUyLjAwMFoifV0sImlhdCI6MTU0ODAxODAyM30.myQ22_P1-9eh1dCRYKS8e57F0gtKjTCaWBJvwvg4ZWU`;
-  const decoded = jwt.verify(token, process.env.API_SECRET_KEY);
-  console.log(decoded.user) // bar
-  res.send(decoded.user);
+
 });
 
 // Setup User
 app.post('/signin', signin.handleSignin(db, bcrypt, jwt));
-app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)});
+app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt,jwt)});
 
 // Modify Cards
 app.put('/addcard', (req, res) => {flashCards.handleAdd(req, res, db)});
