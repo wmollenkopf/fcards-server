@@ -20,7 +20,6 @@ CREATE TABLE `fcards`.`users` (
 ```
 
 ```sql
-CREATE DATABASE `fcards`;
 CREATE TABLE `fcards`.`logins` (
   `user_id` INT NOT NULL,
   `password` VARCHAR(255) NOT NULL,
