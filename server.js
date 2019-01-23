@@ -8,7 +8,6 @@ const jwt = require("jsonwebtoken");
 const options = {
   client: "mysql",
   connection: {
-    //host: process.env.DB_HOST_SOCKET,
     socketPath : process.env.DB_HOST_SOCKET,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
