@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
+console.log("DB_HOST_SOCKET: ",process.env.DB_HOST_SOCKET);
+console.log("DB_USER: ",process.env.DB_USER);
+console.log("DB_PASS: ",process.env.DB_PASS);
 const options = {
   client: "mysql",
   connection: {
