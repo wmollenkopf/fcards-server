@@ -1,7 +1,7 @@
 {
-  "name": "lang-flash-card-server",
+  "name": "fcards-server",
   "version": "1.0.0",
-  "description": "Server for language learning flash cards.",
+  "description": "Server for storing/retrieving flash cards.",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -9,10 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wmollenkopf/lang-flash-card-server.git"
+    "url": "git+https://github.com/wmollenkopf/fcards-server.git"
   },
   "keywords": [
-    "Language",
     "Flash",
     "Cards",
     "Learning"
@@ -20,9 +19,9 @@
   "author": "wmollenkopf",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wmollenkopf/lang-flash-card-server/issues"
+    "url": "https://github.com/wmollenkopf/fcards-server/issues"
   },
-  "homepage": "https://github.com/wmollenkopf/lang-flash-card-server#readme",
+  "homepage": "https://github.com/wmollenkopf/fcards-server#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
