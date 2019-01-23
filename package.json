@@ -3,14 +3,6 @@
   "version": "1.0.0",
   "description": "Server for storing/retrieving flash cards.",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wmollenkopf/fcards-server.git"
-  },
   "keywords": [
     "Flash",
     "Cards",
