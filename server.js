@@ -9,8 +9,8 @@ const options = {
   client: "mysql",
   connection: {
     socketPath : process.env.DB_HOST_SOCKET,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
+    user: process.env.FCARDS_DB_USER,
+    password: process.env.FCARDS_DB_PASS,
     database: "fcards"
   }
 };
@@ -28,8 +28,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Listeners...
-app.get("/", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.DB_USER}`);});
-app.get("/test", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.DB_USER}`);});
+app.get("/", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.FCARDS_DB_USER}`);});
+app.get("/test", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.FCARDS_DB_USER}`);});
 
 // Setup User
 app.post('/signin', signin.handleSignin(db, bcrypt, jwt));
