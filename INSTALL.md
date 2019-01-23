@@ -5,14 +5,14 @@ DB User:
 ```sql
 CREATE USER 'your_db_username'@'localhost' IDENTIFIED BY 'your_db_password';
 ALTER USER 'your_db_username'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_db_password';
-GRANT ALL ON lang_flash_cards.* TO 'your_db_username'@'localhost';
+GRANT ALL ON fcards.* TO 'your_db_username'@'localhost';
 ```
 
 Tables:
 
 ```sql
-CREATE DATABASE `lang_flash_cards`;
-CREATE TABLE `lang_flash_cards`.`users` (
+CREATE DATABASE `fcards`;
+CREATE TABLE `fcards`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -20,15 +20,15 @@ CREATE TABLE `lang_flash_cards`.`users` (
 ```
 
 ```sql
-CREATE DATABASE `lang_flash_cards`;
-CREATE TABLE `lang_flash_cards`.`logins` (
+CREATE DATABASE `fcards`;
+CREATE TABLE `fcards`.`logins` (
   `user_id` INT NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`user_id`));
 ```
 
 ```sql
-CREATE TABLE `lang_flash_cards`.`cards` (
+CREATE TABLE `fcards`.`cards` (
   `card_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `card_question` VARCHAR(1000) NOT NULL,
@@ -41,20 +41,20 @@ CREATE TABLE `lang_flash_cards`.`cards` (
 Special Alters
 
 ```sql
-ALTER TABLE lang_flash_cards.users ADD UNIQUE (username);
+ALTER TABLE fcards.users ADD UNIQUE (username);
 ```
 
 Foreign Keys:
 
 ```sql
-ALTER TABLE lang_flash_cards.cards
+ALTER TABLE fcards.cards
  ADD CONSTRAINT fk_cards_users
  FOREIGN KEY (user_id)
  REFERENCES users (user_id)
  ON DELETE CASCADE ON UPDATE RESTRICT;
 ```
 ```sql
-ALTER TABLE lang_flash_cards.logins
+ALTER TABLE fcards.logins
  ADD CONSTRAINT fk_logins_users
  FOREIGN KEY (user_id)
  REFERENCES users (user_id)
