@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 
 // Listeners...
 app.get("/", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.DB_USER}`);});
+app.get("/test", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.DB_USER}`);});
 
 // Setup User
 app.post('/signin', signin.handleSignin(db, bcrypt, jwt));
