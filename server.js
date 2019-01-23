@@ -22,7 +22,7 @@ const register = require('./controllers/register');
 const flashCards = require('./controllers/flashCards');
 
 // Express Init...
-const appPort = 3000;
+const appPort = 80 || 3000 || process.env.port;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
