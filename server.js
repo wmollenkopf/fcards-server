@@ -5,14 +5,11 @@ const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 
-console.log("DB_HOST_SOCKET: ",process.env.DB_HOST_SOCKET);
-console.log("DB_USER: ",process.env.DB_USER);
-console.log("DB_PASS: ",process.env.DB_PASS);
 const options = {
   client: "mysql",
   connection: {
     //host: process.env.DB_HOST_SOCKET,
-    socketPath : '/srv/run/mysqld/mysqld.sock',
+    socketPath : process.env.DB_HOST_SOCKET,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: "fcards"
@@ -32,7 +29,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Listeners...
-app.get("/", (req, res) => {res.send("Hello World");});
+app.get("/", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.DB_USER}`);});
 app.get("/decode", (req, res) => {
 
 });
