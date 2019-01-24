@@ -28,8 +28,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Listeners...
-app.get("/", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.FCARDS_DB_USER}`);});
-app.get("/test", (req, res) => {res.send(`${process.env.DB_HOST_SOCKET} ${process.env.FCARDS_DB_USER}`);});
+app.get("/", (req, res) => {res.send(`API Server for <a href="https://fcards.biri.me">https://fcards.biri.me</a>`);});
 
 // Setup User
 app.post('/signin', signin.handleSignin(db, bcrypt, jwt));
